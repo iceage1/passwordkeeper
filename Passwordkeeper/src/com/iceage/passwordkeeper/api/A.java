@@ -1,4 +1,4 @@
-package com.iceage.passwordkeeper;
+package com.iceage.passwordkeeper.api;
 
 public class A {
 	public static void main(String[] args) {

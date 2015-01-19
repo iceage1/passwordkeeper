@@ -1,4 +1,4 @@
-package com.iceage.passwordkeeper;
+package com.iceage.passwordkeeper.api;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
