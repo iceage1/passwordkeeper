@@ -169,8 +169,8 @@ public class RSAUtil {
 	public void decrypt(Cipher cipher) throws Exception {
 		byte[] source = readEncrpt();
 		byte[] decodedBytes = decryptRSAByteChunk(source, 117, cipher);
-		String result = new String(decodedBytes);
-		System.out.println(result);
+		//String result = new String(decodedBytes);
+		//System.out.println(result);
 		writeDecrypt(decodedBytes);
 	}
 
