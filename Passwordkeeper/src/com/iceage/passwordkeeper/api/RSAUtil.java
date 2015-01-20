@@ -120,12 +120,28 @@ public class RSAUtil {
 		return content;
 	}
 
-	private byte[] readsource() throws FileNotFoundException {
+	public byte[] readsource(String source) throws FileNotFoundException {
+		return read(new FileInputStream(source));
+	}
+	
+	public byte[] readsource() throws FileNotFoundException {
 		return read(new FileInputStream(source));
 	}
 
-	private byte[] readEncrpt() throws FileNotFoundException {
+	public byte[] readsource(File source) throws FileNotFoundException {
+		return read(new FileInputStream(source));
+	}
+	
+	public byte[] readEncrpt() throws FileNotFoundException {
 		return read(new FileInputStream(encrypted));
+	}
+	
+	public byte[] readEncrpt(String encrypt) throws FileNotFoundException {
+		return read(new FileInputStream(encrypt));
+	}
+	
+	public byte[] readEncrpt(File encrypt) throws FileNotFoundException {
+		return read(new FileInputStream(encrypt));
 	}
 
 	private void write(OutputStream outStream, byte[] bs) {
@@ -145,7 +161,17 @@ public class RSAUtil {
 		write(new FileOutputStream(encrypted), bs);
 	}
 
-	private void writeDecrypt(byte[] bs) throws FileNotFoundException {
+	public void writeDecrypt(byte[] bs) throws FileNotFoundException {
+		write(new FileOutputStream(dencrypted), bs);
+
+	}
+	
+	public void writeDecrypt(byte[] bs, String dencrypted) throws FileNotFoundException {
+		write(new FileOutputStream(dencrypted), bs);
+
+	}
+	
+	public void writeDecrypt(byte[] bs,  File dencrypted) throws FileNotFoundException {
 		write(new FileOutputStream(dencrypted), bs);
 
 	}
@@ -165,12 +191,22 @@ public class RSAUtil {
 		byte[] encodeBytes = encryptRSAByteChunk(source, 117, cipher);
 		writeEncrypt(encodeBytes);
 	}
+	
+	public void encrypt(Cipher cipher, String source) throws Exception {
+		byte[] sourceBytes = readsource(source);
+		byte[] encodeBytes = encryptRSAByteChunk(sourceBytes, 117, cipher);
+		writeEncrypt(encodeBytes);
+	}
 
 	public void decrypt(Cipher cipher) throws Exception {
 		byte[] source = readEncrpt();
 		byte[] decodedBytes = decryptRSAByteChunk(source, 117, cipher);
-		//String result = new String(decodedBytes);
-		//System.out.println(result);
+		writeDecrypt(decodedBytes);
+	}
+	
+	public void decrypt(Cipher cipher, String dest) throws Exception {
+		byte[] source = readEncrpt(dest);
+		byte[] decodedBytes = decryptRSAByteChunk(source, 117, cipher);
 		writeDecrypt(decodedBytes);
 	}
 
@@ -257,7 +293,7 @@ public class RSAUtil {
 		return processed;
 	}
 
-	private byte[] decryptRSAByteChunk(byte[] source, int chunkSize,
+	public byte[] decryptRSAByteChunk(byte[] source, int chunkSize,
 			Cipher cipher) {
 		byte[] processed = new byte[source.length];
 		int totalLength = 0;
