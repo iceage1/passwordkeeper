@@ -96,12 +96,28 @@ public class RSAUtil {
 		return key;
 	}
 
-	private static PrivateKey readPrivateKey() throws FileNotFoundException {
+	public static PrivateKey readPrivateKey() throws FileNotFoundException {
 		return (PrivateKey) readKey(new FileInputStream(privateKey));
 	}
-
-	private static PublicKey readPublicKey() throws FileNotFoundException {
+	
+	public static PrivateKey readPrivateKey(File file) throws FileNotFoundException {
+		return (PrivateKey) readKey(new FileInputStream(file));
+	}
+	
+	public static PrivateKey readPrivateKey(InputStream is) throws FileNotFoundException {
+		return (PrivateKey) readKey(is);
+	}
+	
+	public static PublicKey readPublicKey() throws FileNotFoundException {
 		return (PublicKey) readKey(new FileInputStream(publicKey));
+	}
+	
+	public static PublicKey readPublicKey(File file) throws FileNotFoundException {
+		return (PublicKey) readKey(new FileInputStream(file));
+	}
+	
+	public static PublicKey readPublicKey(InputStream is) throws FileNotFoundException {
+		return (PublicKey) readKey(is);
 	}
 
 	private byte[] read(InputStream inputStream) {
@@ -200,13 +216,15 @@ public class RSAUtil {
 
 	public void decrypt(Cipher cipher) throws Exception {
 		byte[] source = readEncrpt();
-		byte[] decodedBytes = decryptRSAByteChunk(source, 117, cipher);
+		PrivateKey key=readPrivateKey();
+		byte[] decodedBytes = decryptRSAByteChunk(source, 117, cipher,key );
 		writeDecrypt(decodedBytes);
 	}
 	
 	public void decrypt(Cipher cipher, String dest) throws Exception {
 		byte[] source = readEncrpt(dest);
-		byte[] decodedBytes = decryptRSAByteChunk(source, 117, cipher);
+		PrivateKey key=readPrivateKey();
+		byte[] decodedBytes = decryptRSAByteChunk(source, 117, cipher, key);
 		writeDecrypt(decodedBytes);
 	}
 
@@ -294,11 +312,11 @@ public class RSAUtil {
 	}
 
 	public byte[] decryptRSAByteChunk(byte[] source, int chunkSize,
-			Cipher cipher) {
+			Cipher cipher,PrivateKey key) {
 		byte[] processed = new byte[source.length];
 		int totalLength = 0;
 		try {
-			PrivateKey key = readPrivateKey();
+			//PrivateKey key = readPrivateKey();
 			int unProcessedBytes = source.length;
 			byte[] temp = new byte[128];
 			int unprocessedFrom = 0;
@@ -327,8 +345,6 @@ public class RSAUtil {
 				}
 			}
 		} catch (InvalidKeyException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IllegalBlockSizeException e) {
 			e.printStackTrace();

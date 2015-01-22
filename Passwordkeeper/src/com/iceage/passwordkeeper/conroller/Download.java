@@ -2,6 +2,7 @@ package com.iceage.passwordkeeper.conroller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
@@ -33,7 +34,8 @@ public class Download {
 	    try {
 			Cipher cipher = Cipher.getInstance("RSA");
 			byte[] source = rsaUtil.readEncrpt(file);
-			byte[] decodedBytes = rsaUtil.decryptRSAByteChunk(source, 117, cipher);
+			PrivateKey key= RSAUtil.readPrivateKey(new File(FILE_PATH+ "\\"+ "pri.key"));
+			byte[] decodedBytes = rsaUtil.decryptRSAByteChunk(source, 117, cipher, key);
 			rsaUtil.writeDecrypt(decodedBytes, a);
 			
 		} catch (FileNotFoundException e) {
