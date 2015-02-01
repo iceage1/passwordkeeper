@@ -85,10 +85,10 @@ button {
 					if (normalData && (p.isFile == true)){
 						html=html.concat(
 								'<div class="childData fltRight download"><button> Download</button></div>'+
-								'<div class="childData fltRight"><button> Edit</button> </div>'
+								'<div class="childData fltRight"><button> Edit</button> </div>'+
+								'<div class="childData fltRight viewFile"><button> View</button> </div>'+'</div>'
 						);
-					}
-					if (normalData ){
+					}else if(normalData){
 						html=html.concat('<div class="childData fltRight view"><button> View</button> </div>'+'</div>');
 					}
 					$('#dataContainer').append(html);
@@ -158,7 +158,15 @@ button {
 					t= $(this).closest('.data').find('.fileName').text();	
 				}
 				$("#frame").attr("src", "rest/getResource/"+t);
+			}else if($(this).closest(".childData").hasClass("viewFile")){
+				t=$('.curDir .relativePath').text().concat("-").concat(t);
+				if (t.indexOf("abc-") == 0){
+					t= $(this).closest('.data').find('.fileName').text();	
+				}
+				$("#frame").attr("src", "rest/getResource/"+t);
+				
 			}
+			
 			
 			//alert('asdasdas');
 			//$(this).closest('.data').find('.fileName').text();
