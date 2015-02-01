@@ -1,0 +1,11 @@
+{
+  "folder": [
+    "ICICI",
+    "HDFC",
+    "SBI"
+  ],
+  "files": [
+    "Pan.details"
+  ],
+  "path": "resource/Bank/"
+}

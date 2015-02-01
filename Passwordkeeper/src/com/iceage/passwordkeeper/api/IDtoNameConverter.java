@@ -5,8 +5,15 @@ public class IDtoNameConverter {
 	
 	public static String getFileName(String id){
 		StringBuilder a= new StringBuilder();
-		//for(id.)
-		return id;
+		String fileName = null;
+		// Test implementation should be fetched from Db
+		switch(id){
+		case "hgjvvchcjvjcjcccjlcljcc":
+			fileName= "abc";
+		case "asdsafsdddsggdsgdgdgdfg":
+			fileName= "Bank/folder.contents";
+		}
+		return fileName;
 	}
 	
 	public static String getID(String fileName){

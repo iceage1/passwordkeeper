@@ -57,7 +57,8 @@ public class RSAUtil {
 			rsa.initKey();
 			Cipher cipher = Cipher.getInstance("RSA");
 			rsa.encrypt(cipher);
-			rsa.decrypt(cipher);
+			System.out.println("asdasd");
+			//rsa.decrypt(cipher);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -137,7 +138,8 @@ public class RSAUtil {
 	}
 
 	public byte[] readsource(String source) throws FileNotFoundException {
-		return read(new FileInputStream(source));
+		StringBuilder path= new StringBuilder(Conf.getRepoLoc()).append(source);
+		return read(new FileInputStream(path.toString()));
 	}
 	
 	public byte[] readsource() throws FileNotFoundException {
@@ -174,7 +176,7 @@ public class RSAUtil {
 	}
 
 	private void writeEncrypt(byte[] bs) throws FileNotFoundException {
-		write(new FileOutputStream(encrypted), bs);
+		write(new FileOutputStream(Conf.getRepoLoc().concat(encrypted)), bs);
 	}
 
 	public void writeDecrypt(byte[] bs) throws FileNotFoundException {
